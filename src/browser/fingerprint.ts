@@ -1,7 +1,8 @@
 export const spoofing = (seed: any) => {
-  console.log('🚀 ~ file: fingerprint.ts ~ line 2 ~ spoofing ~ seed', seed);
+  console.log("🚀 ~ file: fingerprint.ts ~ line 2 ~ spoofing ~ seed", seed);
 
   // console.log('Spoofing');
+  // @ts-expect-error
   !(function (t) {
     const e = {};
 
@@ -24,26 +25,26 @@ export const spoofing = (seed: any) => {
           });
       }),
       (n.r = function (t) {
-        typeof Symbol !== 'undefined' &&
+        typeof Symbol !== "undefined" &&
           Symbol.toStringTag &&
           Object.defineProperty(t, Symbol.toStringTag, {
-            value: 'Module',
+            value: "Module",
           }),
-          Object.defineProperty(t, '__esModule', {
+          Object.defineProperty(t, "__esModule", {
             value: !0,
           });
       }),
       (n.t = function (t, e) {
         if ((1 & e && (t = n(t)), 8 & e)) return t;
-        if (4 & e && typeof t === 'object' && t && t.__esModule) return t;
+        if (4 & e && typeof t === "object" && t && t.__esModule) return t;
         const r = Object.create(null);
         if (
           (n.r(r),
-          Object.defineProperty(r, 'default', {
+          Object.defineProperty(r, "default", {
             enumerable: !0,
             value: t,
           }),
-          2 & e && typeof t !== 'string')
+          2 & e && typeof t !== "string")
         )
           for (const o in t)
             n.d(
@@ -64,12 +65,12 @@ export const spoofing = (seed: any) => {
             : function () {
                 return t;
               };
-        return n.d(e, 'a', e), e;
+        return n.d(e, "a", e), e;
       }),
       (n.o = function (t, e) {
         return Object.prototype.hasOwnProperty.call(t, e);
       }),
-      (n.p = ''),
+      (n.p = ""),
       n((n.s = 0));
   })([
     function (t, e) {
@@ -88,38 +89,38 @@ export const spoofing = (seed: any) => {
         };
         if (
           (o(1, [
-            'toDataURL',
-            'toBlob',
-            'getImageData',
-            'getLineDash',
-            'measureText',
+            "toDataURL",
+            "toBlob",
+            "getImageData",
+            "getLineDash",
+            "measureText",
           ]),
-          o(2, ['readPixels', 'bufferData', 'getParameter']),
-          o(4, ['getChannelData', 'getFloatFrequencyData']),
-          o(8, ['offsetWidth', 'offsetHeight']),
+          o(2, ["readPixels", "bufferData", "getParameter"]),
+          o(4, ["getChannelData", "getFloatFrequencyData"]),
+          o(8, ["offsetWidth", "offsetHeight"]),
           o(16, [
-            'getBattery',
-            'getGamepads',
-            'getVRDisplays',
-            'screen',
-            'plugins',
-            'mimeTypes',
-            'platform',
-            'language',
-            'languages',
+            "getBattery",
+            "getGamepads",
+            "getVRDisplays",
+            "screen",
+            "plugins",
+            "mimeTypes",
+            "platform",
+            "language",
+            "languages",
           ]),
           o(32, [
-            'enumerateDevices',
-            'MediaStreamTrack',
-            'RTCPeerConnection',
-            'RTCSessionDescription',
-            'webkitMediaStreamTrack',
-            'webkitRTCPeerConnection',
-            'webkitRTCSessionDescription',
+            "enumerateDevices",
+            "MediaStreamTrack",
+            "RTCPeerConnection",
+            "RTCSessionDescription",
+            "webkitMediaStreamTrack",
+            "webkitRTCPeerConnection",
+            "webkitRTCSessionDescription",
           ]),
-          o(64, ['getClientRects']),
-          o(128, ['getTimezoneOffset', 'resolvedOptions']),
-          o(256, ['logs']),
+          o(64, ["getClientRects"]),
+          o(128, ["getTimezoneOffset", "resolvedOptions"]),
+          o(256, ["logs"]),
           (e.s = (512 | e.v) == e.v ? Math.random() : parseFloat(e.s)),
           !window[r])
         ) {
@@ -156,7 +157,7 @@ export const spoofing = (seed: any) => {
                 });
               };
               t &&
-                (typeof n === 'string'
+                (typeof n === "string"
                   ? o(n, r)
                   : n instanceof Array
                   ? n.forEach(function (t) {
@@ -185,22 +186,23 @@ export const spoofing = (seed: any) => {
             };
             return (
               u(function (r) {
-                console.log('🚀 ~ file: fingerprint.ts ~ line 188 ~ r', r);
+                console.log("🚀 ~ file: fingerprint.ts ~ line 188 ~ r", r);
                 const o = r.HTMLCanvasElement.prototype;
                 const a = o.toDataURL;
                 console.log(
-                  '🚀 ~ file: fingerprint.ts ~ line 190 ~ o.toDataURL',
+                  "🚀 ~ file: fingerprint.ts ~ line 190 ~ o.toDataURL",
                   o.toDataURL
                 );
                 const u = o.toBlob;
                 console.log(
-                  '🚀 ~ file: fingerprint.ts ~ line 192 ~ o.toBlob',
+                  "🚀 ~ file: fingerprint.ts ~ line 192 ~ o.toBlob",
                   o.toBlob
                 );
                 const c = r.CanvasRenderingContext2D.prototype.getImageData;
-                const s = t.document.createElement('canvas');
-                const p = s.getContext('2d');
+                const s = t.document.createElement("canvas");
+                const p = s.getContext("2d");
                 const f = function (t) {
+                  // @ts-expect-error
                   !(function (t, n) {
                     if (e.logs) {
                       const r = {};
@@ -220,7 +222,7 @@ export const spoofing = (seed: any) => {
                       height: r,
                     }),
                     p.drawImage(t, 0, 0),
-                    (p.fillStyle = 'rgba(255,255,255,'.concat(e.s, ')')),
+                    (p.fillStyle = "rgba(255,255,255,".concat(e.s, ")")),
                     p.fillRect(0, 0, 0.6, 0.6),
                     s
                   );
@@ -248,6 +250,7 @@ export const spoofing = (seed: any) => {
                         e
                       );
                     })(() => {
+                      // @ts-expect-error
                       return f(this.canvas), getLineDash.apply(this, arguments);
                     }),
                     measureText() {
@@ -310,7 +313,9 @@ export const spoofing = (seed: any) => {
               }),
               u(function (t) {
                 return (
+                  // @ts-expect-error
                   (n = t.HTMLElement.prototype),
+                  // @ts-expect-error
                   (r = {
                     offsetWidth() {
                       return (
@@ -323,6 +328,7 @@ export const spoofing = (seed: any) => {
                       );
                     },
                   }),
+                  // @ts-expect-error
                   Object.keys(r).forEach(function (t) {
                     const o = n.__lookupGetter__(t);
                     Object.defineProperty(n, t, {
@@ -336,7 +342,8 @@ export const spoofing = (seed: any) => {
                 let r;
               }),
               u(function (t) {
-                return n(t.Element.prototype, 'getClientRects', function () {
+                // @ts-expect-error
+                return n(t.Element.prototype, "getClientRects", function () {
                   return {
                     0: {
                       x: 0,
@@ -368,7 +375,7 @@ export const spoofing = (seed: any) => {
                     __proto__: t.Screen.prototype,
                     orientation: {
                       angle: 0,
-                      type: 'landscape-primary',
+                      type: "landscape-primary",
                       onchange: null,
                       __proto__: t.ScreenOrientation.prototype,
                     },
@@ -377,9 +384,9 @@ export const spoofing = (seed: any) => {
               }),
               u(function (t) {
                 return n(t.navigator, [
-                  'getBattery',
-                  'getGamepads',
-                  'getVRDisplays',
+                  "getBattery",
+                  "getGamepads",
+                  "getVRDisplays",
                 ]);
               }),
               u(function (t) {
@@ -392,9 +399,9 @@ export const spoofing = (seed: any) => {
                     length: 0,
                     __proto__: t.MimeTypeArray.prototype,
                   },
-                  platform: 'Win32',
-                  language: 'en-US',
-                  languages: ['en-US'],
+                  platform: "Win32",
+                  language: "en-US",
+                  languages: ["en-US"],
                 });
               }),
               u(function (t) {
@@ -404,9 +411,9 @@ export const spoofing = (seed: any) => {
                     return e.apply(this, arguments).then(function (e) {
                       return (
                         e.push({
-                          deviceId: 'default',
-                          groupId: 'n/a',
-                          kind: 'audiooutput',
+                          deviceId: "default",
+                          groupId: "n/a",
+                          kind: "audiooutput",
                           label: `FPS-Audio ${i(400)}`,
                           __proto__: t.MediaDeviceInfo.prototype,
                         }),
@@ -418,33 +425,35 @@ export const spoofing = (seed: any) => {
               }),
               u(function (t) {
                 return n(t, [
-                  'MediaStreamTrack',
-                  'RTCPeerConnection',
-                  'RTCSessionDescription',
-                  'webkitMediaStreamTrack',
-                  'webkitRTCPeerConnection',
-                  'webkitRTCSessionDescription',
+                  "MediaStreamTrack",
+                  "RTCPeerConnection",
+                  "RTCSessionDescription",
+                  "webkitMediaStreamTrack",
+                  "webkitRTCPeerConnection",
+                  "webkitRTCSessionDescription",
                 ]);
               }),
               u(function (t) {
                 return n(
                   t.Intl.DateTimeFormat.prototype,
-                  'resolvedOptions',
+                  "resolvedOptions",
+                  // @ts-expect-error
                   function () {
                     return {
-                      calendar: 'gregory',
-                      day: 'numeric',
-                      locale: 'en-US',
-                      month: 'numeric',
-                      numberingSystem: 'latn',
-                      timeZone: 'UTC',
-                      year: 'numeric',
+                      calendar: "gregory",
+                      day: "numeric",
+                      locale: "en-US",
+                      month: "numeric",
+                      numberingSystem: "latn",
+                      timeZone: "UTC",
+                      year: "numeric",
                     };
                   }
                 );
               }),
               u(function (t) {
-                return n(t.Date.prototype, 'getTimezoneOffset', function () {
+                // @ts-expect-error
+                return n(t.Date.prototype, "getTimezoneOffset", function () {
                   return [
                     720, 660, 600, 570, 540, 480, 420, 360, 300, 240, 210, 180,
                     120, 60, 0, -60, -120, -180, -210, -240, -270, -300, -330,
@@ -458,17 +467,21 @@ export const spoofing = (seed: any) => {
             );
           };
           u(window);
-          const c =
-            HTMLIFrameElement.prototype.__lookupGetter__('contentWindow');
-          const s =
-            HTMLIFrameElement.prototype.__lookupGetter__('contentDocument');
+          // @ts-ignore
+          const c = (HTMLIFrameElement.prototype as any).__lookupGetter__(
+            "contentWindow"
+          );
+          // @ts-ignore
+          const s = (HTMLIFrameElement.prototype as any).__lookupGetter__(
+            "contentDocument"
+          );
           Object.defineProperties(HTMLIFrameElement.prototype, {
             contentWindow: {
               get() {
                 const t = c.apply(this, arguments);
                 return this.src &&
-                  this.src.indexOf('//') != -1 &&
-                  location.host != this.src.split('/')[2]
+                  this.src.indexOf("//") != -1 &&
+                  location.host != this.src.split("/")[2]
                   ? t
                   : u(t);
               },
@@ -476,8 +489,8 @@ export const spoofing = (seed: any) => {
             contentDocument: {
               get() {
                 return this.src &&
-                  this.src.indexOf('//') != -1 &&
-                  location.host != this.src.split('/')[2]
+                  this.src.indexOf("//") != -1 &&
+                  location.host != this.src.split("/")[2]
                   ? s.apply(this, arguments)
                   : (u(c.apply(this, arguments)), s.apply(this, arguments));
               },
@@ -500,7 +513,7 @@ export const spoofing = (seed: any) => {
           .slice(1, -4);
       };
       console.log(
-        '🚀 ~ file: fingerprint.ts ~ line 498 ~ spoofing ~ seedToG(seed)',
+        "🚀 ~ file: fingerprint.ts ~ line 498 ~ spoofing ~ seedToG(seed)",
         seedToG(seed)
       );
       if (!window?.location?.ancestorOrigins?.length)

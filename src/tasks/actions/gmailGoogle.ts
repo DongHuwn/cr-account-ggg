@@ -351,23 +351,33 @@ const fillEmailPassWordGooglePageOther = async (
 
 const fillInput = async (page: Page, selector: string, inputText: string) => {
   const field = await page.$(selector);
-  if (field) {
-    await field.focus()
-    
-    await field.type(inputText, { delay: 80 });
+  const isVisible = field ? await field.isVisible() : false;
+  if (field && isVisible === true) {
+    await page.evaluate(function (selector) {
+      // @ts-ignore
+      document.querySelector(selector).value = "";
+    }, selector);
+    console.log("Fill " + inputText);
+    if (inputText.includes("@gmail.com")) {
+      inputText = inputText.split("@")[0];
+    }
+    await page.type(selector, inputText, { delay: 80 });
     await field.dispose();
     await wait(randomInteger(3, 5) * 1000);
   }
 };
 const fillCreateAccountGoogle = async (page: Page, account: AccountGoogle) => {
-  const firstName = account.nameAccount?.split(" ")[0];
-  const lastName = account.nameAccount?.split(" ")[1];
-  await fillInput(page, "input#[name='firstName']", firstName);
-  await fillInput(page, "input#[name='lastName']", lastName);
-  // Username
-  await fillInput(page, "input#[name='Username']", account.gmail);
-  await fillInput(page, "input#[name='Passwd']", account.pass);
-  await fillInput(page, "input#[name='ConfirmPasswd']", account.pass);
+  console.log(
+    "🚀 ~ file: gmailGoogle.ts ~ line 363 ~ fillCreateAccountGoogle ~ account",
+    account
+  );
+  const firstName = account.name.split(" ")[0];
+  const lastName = account.name.split(" ")[1];
+  await fillInput(page, "input[name='firstName']", firstName);
+  await fillInput(page, "input[name='lastName']", lastName);
+  await fillInput(page, "input[name='Username']", account.gmail);
+  await fillInput(page, "input[name='Passwd']", account.pass);
+  await fillInput(page, "input[name='ConfirmPasswd']", account.pass);
   await clickButtonNext(page);
   await wait(randomInteger(8, 10) * 1000);
 };
@@ -389,10 +399,10 @@ const fillPersonalInforAccountGoogle = async (
     dob && dob.length > 0 ? dob[1] : randomInteger(1, 12).toString();
   const year =
     dob && dob.length > 0 ? dob[1] : randomInteger(1990, 2003).toString();
-  await fillInput(page, "input#[name='recoveryEmail']", account.mailKP);
-  await fillInput(page, "input#[name='day']", day);
+  await fillInput(page, "input[name='recoveryEmail']", account.mailKP);
+  await fillInput(page, "input[name='day']", day);
   await selectOption(page, "select#month", month);
-  await fillInput(page, "input#[name='year']", year);
+  await fillInput(page, "input[name='year']", year);
   await selectOption(
     page,
     "select#gender",

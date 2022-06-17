@@ -60,3 +60,5 @@ async function upsertOneProfile(value: any) {
     id: value.id,
   };
 }
+
+export { upsertOneProfile };

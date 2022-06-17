@@ -12,11 +12,11 @@ export function createRandomUser(): AccountGoogle {
     nameAccount: faker.name.findName(),
     gmail: faker.internet.email(),
     pass: faker.internet.password(8),
-    dateOfBirth: faker.date.birthdate({}).toString(),
+    dateOfBirth: faker.date.birthdate().toString(),
     userAgent: faker.internet.userAgent(),
     proxy: "",
     mailKP: "",
-    gender: faker.name.gender(),
+    gender: faker.name.gender(true),
   };
 }
 const generateInformation = () => {
@@ -26,15 +26,10 @@ const generateInformation = () => {
   for (const user of USERS) {
     userObject[user.id?.toString()] = user;
   }
-  const json = JSON.stringify(userObject);
-  if (!fs.existsSync(path.join(__dirname + "../db"))) {
-    try {
-      fs.mkdirSync(path.join(__dirname + "../db/"), { recursive: true });
-    } catch (e) {
-      console.log("Cannot create folder ", e);
-    }
-    fs.writeFileSync(path.join(__dirname + "../db/config.json"), json, "utf8");
-  }
+  fs.writeFile("config.json", JSON.stringify(userObject), function (err) {
+    if (err) throw err;
+    console.log("complete");
+  });
 };
 
 generateInformation();

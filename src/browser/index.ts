@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import { createRequire } from "module";
 import { chromium, Browser, BrowserContext, Page } from "playwright";
 import fs from "fs";
 import path from "path";
@@ -9,33 +7,26 @@ import { addStealth } from "./stealth";
 import { getCookiesFilter } from "./getCookies";
 import { randomInteger, randomNumber, wait } from "../helper";
 
-const chromePaths = require("chrome-paths");
-
+// const chromePaths = require("chrome-paths");
+console.log(path.resolve(__dirname, "../../assets/bin/chrome-win/chrome.exe"));
 const CHROMIUM_WIN_PATH = path.resolve(
   __dirname,
-  "../../assets/bin/chrome-win/bin/chrome.exe"
+  "../../assets/bin/chrome-win/chrome.exe"
 );
 
 process.setMaxListeners(0);
 
 export const initializeBrowser = async (
   headless: boolean,
-  userAgents: string[],
-  profile: AccountGoogle,
+  profile: AccountGoogle
 ): Promise<any | undefined> => {
   const proxy = profile?.proxy
     ?.replace("https://", "")
     .replace("http://", "")
     .split(":");
-  const extensionTunnelBearVPN = path.join(
-    __dirname,
-    "../../extensions/omdakjcmkglenbhjadbccaookpfjihpa/3.4.0_0"
-  );
   // eslint-disable-next-line
   profile.userAgent = profile.userAgent
     ? profile.userAgent
-    : userAgents && userAgents.length > 0
-    ? userAgents[randomNumber(0, userAgents.length)]
     : "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.50";
 
   if (profile.userAgent) {
@@ -51,10 +42,7 @@ export const initializeBrowser = async (
       ],
       chromiumSandbox: false,
       userAgent: profile.userAgent,
-      geolocation: {
-        latitude: profile.latitude,
-        longitude: profile.longitude,
-      },
+      executablePath: CHROMIUM_WIN_PATH,
 
       // slowMo: 80,
       //
@@ -71,11 +59,15 @@ export const initializeBrowser = async (
       ],
     };
 
-    if (os.platform() === "win32") {
-      options.executablePath = CHROMIUM_WIN_PATH;
+    if (profile.latitude && profile.latitude) {
+      // @ts-ignore
+      options.geolocation = {
+        latitude: profile.latitude,
+        longitude: profile.longitude,
+      };
     }
-
     if (profile.timezone) {
+      // @ts-ignore
       options.timezoneId = profile.timezone;
     }
 
@@ -104,19 +96,18 @@ export const initializeBrowser = async (
         proxyUser,
         proxyPassword
       );
+      // @ts-ignore
       options.proxy = {
         server: `${proxyServer}${proxyPort ? `:${proxyPort}` : ""}`,
         username: proxyUser,
         password: proxyPassword,
       };
-    } else {
-      options.args.push(
-        `--disable-extensions-except=${extensionTunnelBearVPN}`
-      );
-      options.args.push(`--load-extension=${extensionTunnelBearVPN}`);
-      console.log(`Start browser headless: alo with extesion: `);
     }
-
+    profile.profilePath = profile.profilePath
+      ? profile.profilePath: path.resolve(
+        __dirname,
+        "../../profile"
+      );
     try {
       const context = await chromium.launchPersistentContext(
         path.join(`${profile.profilePath}`, `${profile.id}`),
@@ -131,6 +122,7 @@ export const initializeBrowser = async (
             cookies = JSON.parse(cookies);
           }
           if (cookies.length > 0) {
+            // @ts-ignore
             await context.addCookies(cookies);
             profile.cookies = "";
           }
@@ -157,19 +149,6 @@ export const initializeBrowser = async (
           .catch((e) => console.error(`error evaluate ${e}`));
 
         console.log("Inject xong");
-        // const promises = profile.websiteTarget?.map(async (url, i) => {
-        //   const page = await context.newPage();
-        //   await page?.goto(url, {
-        //     waitUntil: 'domcontentloaded',
-        //     // Remove the timeout
-        //     timeout: 0,
-        //   });
-        //   return page;
-        // });
-
-        // if (promises) {
-        //   Promise.all(promises).catch((e) => log.error('Open page error: ', e));
-        // }
       })();
 
       return context;

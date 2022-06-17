@@ -16,7 +16,7 @@ import {
 } from "./actions";
 
 // https://goo.gl/aqsW6D
-const loginGmailGoogle = async (page: Page, account: AccountGoogle) => {
+const registerAccountGoogle = async (page: Page, account: AccountGoogle) => {
   try {
     let checkSuccess = true;
     let check = false;
@@ -67,6 +67,9 @@ const loginGmailGoogle = async (page: Page, account: AccountGoogle) => {
         checkSuccess = true;
       }
     }
+    if (checkSuccess) {
+      account.isRegisterGoogleAccountSuccess = true;
+    }
     return checkSuccess;
   } catch (error: any) {
     console.error(`Error when google: ${error.message}`);
@@ -74,4 +77,4 @@ const loginGmailGoogle = async (page: Page, account: AccountGoogle) => {
   }
 };
 // eslint-disable-next-line
-export { loginGmailGoogle };
+export { registerAccountGoogle };

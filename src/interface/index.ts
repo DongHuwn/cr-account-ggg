@@ -1,6 +1,6 @@
 export interface AccountGoogle {
-  id?: number;
-  nameAccount: string;
+  id: number;
+  name: string;
   proxy: string;
   userAgent: string;
   profilePath?: string;
