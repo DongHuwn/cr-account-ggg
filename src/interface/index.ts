@@ -10,6 +10,7 @@ export interface AccountGoogle {
   fingerprintSeed?: string;
   cookies?: string;
   timezone?: string;
+  permanetDevice?: string;
   latitude?: number;
   longitude?: number;
   gmail: string;

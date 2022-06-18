@@ -30,7 +30,7 @@ const clickButtonNext = async (page: Page) => {
         delay: 60,
       })
       .catch((e) => console.error(e));
-    await page.waitForLoadState("domcontentloaded");
+    await page.waitForLoadState("networkidle");
   }
 };
 

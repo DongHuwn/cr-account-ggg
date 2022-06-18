@@ -14,6 +14,7 @@ const actionGmailGoogle = async (
   try {
     //   readfile json
     const tasks = [
+      "whoer",
       "registerGoogleAccount",
       "loginTikTok",
       // 'signUpLocalService',
@@ -30,9 +31,11 @@ const actionGmailGoogle = async (
       );
       // eslint-disable-next-line
       let page = await browser.newPage();
-      if (tasks[i] === "registerGoogleAccount") {
+      if (tasks[i] === "whoer") {
+        console.log("Go to whoer");
         // eslint-disable-next-line
         actionSuccess = await registerAccountGoogle(page, account);
+        await wait(300000);
       }
       // else if (tasks[i] === 'actionUsNews') {
       //   // eslint-disable-next-line
@@ -50,10 +53,10 @@ const actionGmailGoogle = async (
         break;
       }
     }
-    if (i === tasks.length && actionSuccess === true) {
-      console.log(`Close browser with account ${account.id} run successfully`);
-      await browser.close();
-    }
+    // if (i === tasks.length && actionSuccess === true) {
+    //   console.log(`Close browser with account ${account.id} run successfully`);
+    //   await browser.close();
+    // }
     return actionSuccess;
   } catch (error: any) {
     console.error(error.message);

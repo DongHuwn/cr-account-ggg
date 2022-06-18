@@ -215,3 +215,6 @@ export const IS_ENGLISH_US_LANGUAGE = ".MTM9Cc div.ceNcIf";
 
 // register google account
 export const REGISTER_GOOGLE_URL = "https://goo.gl/aqsW6D";
+// "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp";
+
+//"https://goo.gl/aqsW6D";

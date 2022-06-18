@@ -33,8 +33,13 @@ const registerAccountGoogle = async (page: Page, account: AccountGoogle) => {
         })
         .catch((e) => console.error(e));
       await wait(randomInteger(8, 10) * 1000);
-      check = await checkIsLoginGoogleSuccess(page, account);
+      // await fillCreateAccountGoogle(page, account);
+      // await fillPersonalInforAccountGoogle(page, account);
+      // await clickButtonNext(page);
+      // check = await checkIsLoginGoogleSuccess(page, account);
+      // console.log("🚀 ~ file: registerGoogleAccount.ts ~ line 37 ~ registerAccountGoogle ~ check", check)
       if (!check) {
+        check = await checkIsCreateAccountGoogle(page);
         do {
           check = await checkIsCreateAccountGoogle(page);
           if (check) {

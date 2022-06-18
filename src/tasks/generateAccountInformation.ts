@@ -9,14 +9,14 @@ const userObject: UserObject = {};
 export function createRandomUser(): AccountGoogle {
   return {
     id: faker.datatype.number(),
-    nameAccount: faker.name.findName(),
+    name: faker.name.findName(),
     gmail: faker.internet.email(),
     pass: faker.internet.password(8),
     dateOfBirth: faker.date.birthdate().toString(),
     userAgent: faker.internet.userAgent(),
     proxy: "",
     mailKP: "",
-    gender: faker.name.gender(true),
+    gender: faker.name.gender(true).includes("Male") ? "1" : "2",
   };
 }
 const generateInformation = () => {
