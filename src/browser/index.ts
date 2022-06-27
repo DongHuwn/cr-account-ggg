@@ -20,10 +20,10 @@ export const initializeBrowser = async (
   headless: boolean,
   profile: AccountGoogle
 ): Promise<any | undefined> => {
-  const proxy = profile?.proxy
-    ?.replace("https://", "")
-    .replace("http://", "")
-    .split(":");
+  // const proxy = profile?.proxy
+  //   ?.replace("https://", "")
+  //   .replace("http://", "")
+  //   .split(":");
   // eslint-disable-next-line
   // if (!profile.permanetDevice) {
   //   let property =
@@ -34,6 +34,10 @@ export const initializeBrowser = async (
   //     ];
   //   profile.permanetDevice = property;
   // }
+  const extensionTunnelBearVPN = path.join(
+    __dirname,
+    "../extensions/omdakjcmkglenbhjadbccaookpfjihpa/3.4.0_0"
+  );
 
   if (profile.userAgent) {
     const options = {
@@ -65,6 +69,8 @@ export const initializeBrowser = async (
       // @ts-ignore
       options.executablePath = CHROMIUM_WIN_PATH;
     }
+    options.args.push(`--disable-extensions-except=${extensionTunnelBearVPN}`);
+    options.args.push(`--load-extension=${extensionTunnelBearVPN}`);
 
     // if (proxy) {
     //   const proxyServer = proxy[0];
