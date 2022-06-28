@@ -20,7 +20,7 @@ const clickButtonSignInGmail = async (page: Page) => {
 };
 const clickButtonNext = async (page: Page) => {
   const btn = await page.$(constants.BUTTON_NEXT_ACCOUNT_GOOGLE);
-  const arrContent = ["Next", "I agree"];
+  const arrContent = ["Next", "I agree", "Tiếp theo"];
   const content = btn ? await btn.textContent() : "";
   if (btn && content && arrContent.includes(content)) {
     await btn.scrollIntoViewIfNeeded();
@@ -55,12 +55,14 @@ const fillPassWordInput = async (page: Page, account: AccountGoogle) => {
 };
 
 const fillGoogleLoginAccount = async (page: Page, account: AccountGoogle) => {
-  const url = await page.url();
-  if (url && url.includes("https://www.google.com/gmail/about/")) {
-    console.log("Dang o trang chu an nut sign in de dang nhap");
-    await clickButtonSignInGmail(page);
-    await wait(randomInteger(5, 7) * 1000);
-  }
+  // const url = await page.url();
+  // if (url && url.includes("https://www.google.com/gmail/about/")) {
+  //   console.log("Dang o trang chu an nut sign in de dang nhap");
+  //   await clickButtonSignInGmail(page);
+  //   await wait(randomInteger(5, 7) * 1000);
+  // }
+  await clickButtonSignInGmail(page);
+  await wait(randomInteger(5, 7) * 1000);
   console.log("Dang o trang dang nhap dien thong tin gmail va password");
   await fillEmailInput(page, account);
   await wait(randomInteger(5, 7) * 1000);
@@ -371,8 +373,8 @@ const fillCreateAccountGoogle = async (page: Page, account: AccountGoogle) => {
     "🚀 ~ file: gmailGoogle.ts ~ line 363 ~ fillCreateAccountGoogle ~ account",
     account
   );
-  const firstName = account.name.split(" ")[0];
-  const lastName = account.name.split(" ")[1];
+  const firstName = account.name.split(" ").slice(0, -1).join(" ");
+  const lastName = account.name.split(" ").slice(-1).join(" ");
   await fillInput(page, "input[name='firstName']", firstName);
   await fillInput(page, "input[name='lastName']", lastName);
   await fillInput(page, "input[name='Username']", account.gmail);

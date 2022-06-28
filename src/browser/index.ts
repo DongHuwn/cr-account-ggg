@@ -13,7 +13,7 @@ const CHROMIUM_WIN_PATH = path.resolve(
   __dirname,
   "../../assets/bin/chrome-win/chrome.exe"
 );
-const iphoneProMax = devices["iPhone 11 Pro Max"];
+
 process.setMaxListeners(0);
 
 export const initializeBrowser = async (
@@ -34,10 +34,10 @@ export const initializeBrowser = async (
   //     ];
   //   profile.permanetDevice = property;
   // }
-  const extensionTunnelBearVPN = path.join(
-    __dirname,
-    "../extensions/omdakjcmkglenbhjadbccaookpfjihpa/3.4.0_0"
-  );
+  // const extensionTunnelBearVPN = path.join(
+  //   __dirname,
+  //   "../extensions/omdakjcmkglenbhjadbccaookpfjihpa/3.4.0_0"
+  // );
 
   if (profile.userAgent) {
     const options = {
@@ -47,8 +47,12 @@ export const initializeBrowser = async (
         "--disable-extensions",
         "--disable-component-extensions-with-background-pages",
       ],
+      userAgent: profile.userAgent,
       chromiumSandbox: false,
       args: [
+        `--window-size=0,0`,
+        `--window-position=0,0`,
+
         // `--window-size=${
         //   DeviceDescriptors[profile.permanetDevice].viewport.width
         // },${DeviceDescriptors[profile.permanetDevice].viewport.height}`,
@@ -58,7 +62,7 @@ export const initializeBrowser = async (
         // '--disable-setuid-sandbox',
         "--enable-webgl",
         "--use-gl=desktop",
-        `--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1`,
+        // `--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1`,
         // `--user-agent=${profile.userAgent}`,
         "--disable-dev-shm-usage",
         "--shm-size=4gb",
@@ -69,8 +73,6 @@ export const initializeBrowser = async (
       // @ts-ignore
       options.executablePath = CHROMIUM_WIN_PATH;
     }
-    options.args.push(`--disable-extensions-except=${extensionTunnelBearVPN}`);
-    options.args.push(`--load-extension=${extensionTunnelBearVPN}`);
 
     // if (proxy) {
     //   const proxyServer = proxy[0];
@@ -94,12 +96,12 @@ export const initializeBrowser = async (
     //   };
     // }
 
-    const optionsContext = {
-      ignoreHTTPSErrors: true,
-      viewport: null,
-      locale: "en-US",
-      userAgent: profile.userAgent,
-    };
+    // const optionsContext = {
+    //   ignoreHTTPSErrors: true,
+    //   viewport: null,
+    //   locale: "en-US",
+    //   userAgent: profile.userAgent,
+    // };
 
     // if (profile.latitude && profile.latitude) {
     //   // @ts-ignore
@@ -128,16 +130,16 @@ export const initializeBrowser = async (
     // }
     try {
       // export cookies va data k can persistent
-      const browser = await chromium.launch(options);
-      console.log("Tao an danh");
-      const context = await browser.newContext({
-        ...optionsContext,
-        // ...iphoneProMax,
-      });
-      // const context = await chromium.launchPersistentContext(
-      //   path.join(`${profile.profilePath}`, `${profile.id}`),
-      //   options
-      // );
+      // const browser = await chromium.launch(options);
+      // console.log("Tao an danh");
+      // const context = await browser.newContext({
+      //   ...optionsContext,
+      //   // ...iphoneProMax,
+      // });
+      const context = await chromium.launchPersistentContext(
+        path.join(`${profile.profilePath}`, `${profile.id}`),
+        options
+      );
 
       (async function () {
         if (profile.cookies) {
@@ -152,28 +154,28 @@ export const initializeBrowser = async (
             profile.cookies = "";
           }
         }
-        await addStealth(context).catch((e) =>
-          console.error(`error add stealth ${e}`)
-        );
+        // await addStealth(context).catch((e) =>
+        //   console.error(`error add stealth ${e}`)
+        // );
 
-        if (!profile.fingerprintSeed) {
-          profile.fingerprintSeed = `${profile.name
-            ?.toString()
-            .replace(/[^\w\s]/gi, "")
-            .substring(0, 6)
-            .toLowerCase()}_${Math.round(Math.random() * 1000)}`;
-        }
+        // if (!profile.fingerprintSeed) {
+        //   profile.fingerprintSeed = `${profile.name
+        //     ?.toString()
+        //     .replace(/[^\w\s]/gi, "")
+        //     .substring(0, 6)
+        //     .toLowerCase()}_${Math.round(Math.random() * 1000)}`;
+        // }
         context.setDefaultNavigationTimeout(0);
 
-        await addStealth(context).catch((e) =>
-          console.error(`error add stealth ${e}`)
-        );
+        // await addStealth(context).catch((e) =>
+        //   console.error(`error add stealth ${e}`)
+        // );
 
-        await context
-          .addInitScript(spoofing, profile.fingerprintSeed)
-          .catch((e) => console.error(`error evaluate ${e}`));
+        // await context
+        //   .addInitScript(spoofing, profile.fingerprintSeed)
+        //   .catch((e) => console.error(`error evaluate ${e}`));
 
-        console.log("Inject xong");
+        // console.log("Inject xong");
       })();
 
       return context;

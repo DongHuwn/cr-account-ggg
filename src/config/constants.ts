@@ -218,3 +218,14 @@ export const REGISTER_GOOGLE_URL = "https://goo.gl/aqsW6D";
 // "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp";
 
 //"https://goo.gl/aqsW6D";
+
+// loginTikTok
+export const HOME_PAGE_TIK_TOK = "svg[alt='TikTok']";
+export const REGISTER_TIK_TOK_URL = "https://www.tiktok.com/en/";
+export const FORM_LOGIN_TIK_TOK =
+  "div[data-e2e='login-modal'] div#loginContainer";
+export const LOG_IN_TIK_TOK_BTN =
+  "#app > div.tiktok-12azhi0-DivHeaderContainer.e10win0d0 > div > div.tiktok-ba55d9-DivHeaderRightContainer.e13wiwn60 > button";
+
+export const SELECT_LOGIN_GOOGLE =
+  "#loginContainer > div > div > div:nth-child(5)";

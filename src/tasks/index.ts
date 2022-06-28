@@ -6,6 +6,8 @@ import path from "path";
 import fs from "fs";
 import { wait } from "../helper";
 import { registerAccountGoogle } from "./registerGoogleAccount";
+import { registerTikTokAccount } from "./registerTiktokAccount";
+import { loginGmailGoogle } from "./loginGoogle";
 
 const actionGmailGoogle = async (
   browser: BrowserContext,
@@ -14,9 +16,9 @@ const actionGmailGoogle = async (
   try {
     //   readfile json
     const tasks = [
-      "whoer",
       "registerGoogleAccount",
-      "loginTikTok",
+      "loginGoogle",
+      "registerTikTok",
       // 'signUpLocalService',
       // 'actionGoogleAdMob',
       // 'addBilling',
@@ -31,27 +33,25 @@ const actionGmailGoogle = async (
       );
       // eslint-disable-next-line
       let page = await browser.newPage();
-      if (tasks[i] === "whoer") {
-        console.log("Go to whoer");
+      if (tasks[i] === "loginGoogle") {
         // eslint-disable-next-line
-        actionSuccess = await registerAccountGoogle(page, account);
-        await wait(300000);
+        actionSuccess = await loginGmailGoogle(page, account);
+        // await wait(300000);
+      } else if (tasks[i] === "registerTikTok") {
+        // eslint-disable-next-line
+        actionSuccess = await registerTikTokAccount(browser, page, account);
+        await wait(30000000);
       }
-      // else if (tasks[i] === 'actionUsNews') {
+      // if (!actionSuccess) {
       //   // eslint-disable-next-line
-      //   actionSuccess = await actionUsNews(page, account, store);
-      //   actionSuccess = true;
+      //   await wait(300000);
+      //   console.log(
+      //     `Action run failed in task ${tasks[i]} with account ${account.id}`
+      //   );
+      //   // eslint-disable-next-line
+      //   await browser.close();
+      //   break;
       // }
-      if (!actionSuccess) {
-        // eslint-disable-next-line
-        await wait(300000);
-        console.log(
-          `Action run failed in task ${tasks[i]} with account ${account.id}`
-        );
-        // eslint-disable-next-line
-        await browser.close();
-        break;
-      }
     }
     // if (i === tasks.length && actionSuccess === true) {
     //   console.log(`Close browser with account ${account.id} run successfully`);
