@@ -3,11 +3,19 @@ import got from "got";
 import { isNumeric, randomInteger, randomNumber, wait } from "../helper";
 import * as constants from "../config";
 import { AccountGoogle } from "../interface";
-import { checkIsHomePageTikTok, checkPositionTikTok } from "./checkPosition";
+import {
+  checkIsDialogCapcha,
+  checkIsHomePageTikTok,
+  checkIsSelectedAccountGoogle,
+  checkIsSignUpModalFillBirthDay,
+  checkPositionTikTok,
+} from "./checkPosition";
 import {
   clickBtnLoginTikTok,
   clickBTNTikTok,
   clickHandleDialog,
+  selectAccountGoogleLogin,
+  selectDOBTikTok,
 } from "./actions";
 
 // https://goo.gl/aqsW6D
@@ -33,19 +41,12 @@ const registerTikTokAccount = async (
       !account.isRegisterGoogleAccountSuccess &&
       account.isLoginGmailGoogleSuccess
     ) {
-      console.log("Vao day");
       await page
         .goto(constants.REGISTER_TIK_TOK_URL, {
           waitUntil: "domcontentloaded",
         })
         .catch((e) => console.error(e));
       await wait(randomInteger(8, 10) * 1000);
-      // await fillCreateAccountGoogle(page, account);
-      // await fillPersonalInforAccountGoogle(page, account);
-      // await clickButtonNext(page);
-      // check = await checkIsLoginGoogleSuccess(page, account);
-      // console.log("🚀 ~ file: registerGoogleAccount.ts ~ line 37 ~ registerAccountGoogle ~ check", check)
-      // check is already login
       if (!check) {
         let newPage: Page;
         check = await checkPositionTikTok(page, constants.HOME_PAGE_TIK_TOK);
@@ -54,12 +55,34 @@ const registerTikTokAccount = async (
           check = await checkPositionTikTok(page, constants.FORM_LOGIN_TIK_TOK);
           if (check) {
             newPage = await clickHandleDialog(browser, page);
-            console.log(
-              "🚀 ~ file: registerTiktokAccount.ts ~ line 52 ~ newPage",
-              newPage
-            );
           }
-
+          check = await checkIsSelectedAccountGoogle(newPage);
+          console.log(
+            "🚀 ~ file: registerTiktokAccount.ts ~ line 57 ~ check",
+            check
+          );
+          if (check) {
+            await selectAccountGoogleLogin(newPage, account);
+            await wait(randomInteger(8, 10) * 1000);
+          }
+          await page.bringToFront();
+          check = await checkIsSignUpModalFillBirthDay(page);
+          console.log(
+            "🚀 ~ file: registerTiktokAccount.ts ~ line 68 ~ check",
+            check
+          );
+          if (check) {
+            console.log("select date of birth tiktok");
+            await selectDOBTikTok(page, account);
+          }
+          check = await checkIsDialogCapcha(page);
+          console.log(
+            "🚀 ~ file: registerTiktokAccount.ts ~ line 73 ~ check",
+            check
+          );
+          if (check) {
+            console.log("Vuot qua capcha");
+          }
           //   check = await checkIsPersonalInforAccountGoogle(page);
           //   if (check) {
           //     await fillPersonalInforAccountGoogle(page, account);

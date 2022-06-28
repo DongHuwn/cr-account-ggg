@@ -7,12 +7,13 @@ import { addStealth } from "./stealth";
 import { getCookiesFilter } from "./getCookies";
 import { randomInteger, randomNumber, wait } from "../helper";
 // import { DeviceDescriptors, Device } from "./devices";
-// const chromePaths = require("chrome-paths");
-console.log(path.resolve(__dirname, "../../assets/bin/chrome-win/chrome.exe"));
-const CHROMIUM_WIN_PATH = path.resolve(
-  __dirname,
-  "../../assets/bin/chrome-win/chrome.exe"
-);
+const chromePaths = require("chrome-paths");
+console.log("🚀 ~ file: index.ts ~ line 11 ~ chromePaths", chromePaths);
+// console.log(path.resolve(__dirname, "../../assets/bin/chrome-win/chrome.exe"));
+// const CHROMIUM_WIN_PATH = path.resolve(
+//   __dirname,
+//   "../../assets/bin/chrome-win/chrome.exe"
+// );
 
 process.setMaxListeners(0);
 
@@ -38,7 +39,9 @@ export const initializeBrowser = async (
   //   __dirname,
   //   "../extensions/omdakjcmkglenbhjadbccaookpfjihpa/3.4.0_0"
   // );
-
+  profile.profilePath = profile.profilePath
+    ? profile.profilePath
+    : path.resolve(__dirname, "../../profile");
   if (profile.userAgent) {
     const options = {
       headless,
@@ -52,7 +55,6 @@ export const initializeBrowser = async (
       args: [
         `--window-size=0,0`,
         `--window-position=0,0`,
-
         // `--window-size=${
         //   DeviceDescriptors[profile.permanetDevice].viewport.width
         // },${DeviceDescriptors[profile.permanetDevice].viewport.height}`,
@@ -71,7 +73,7 @@ export const initializeBrowser = async (
 
     if (process.platform === "win32") {
       // @ts-ignore
-      options.executablePath = CHROMIUM_WIN_PATH;
+      options.executablePath = chromePaths.chrome;
     }
 
     // if (proxy) {
@@ -154,26 +156,26 @@ export const initializeBrowser = async (
             profile.cookies = "";
           }
         }
-        // await addStealth(context).catch((e) =>
-        //   console.error(`error add stealth ${e}`)
-        // );
+        await addStealth(context).catch((e) =>
+          console.error(`error add stealth ${e}`)
+        );
 
-        // if (!profile.fingerprintSeed) {
-        //   profile.fingerprintSeed = `${profile.name
-        //     ?.toString()
-        //     .replace(/[^\w\s]/gi, "")
-        //     .substring(0, 6)
-        //     .toLowerCase()}_${Math.round(Math.random() * 1000)}`;
-        // }
+        if (!profile.fingerprintSeed) {
+          profile.fingerprintSeed = `${profile.name
+            ?.toString()
+            .replace(/[^\w\s]/gi, "")
+            .substring(0, 6)
+            .toLowerCase()}_${Math.round(Math.random() * 1000)}`;
+        }
         context.setDefaultNavigationTimeout(0);
 
-        // await addStealth(context).catch((e) =>
-        //   console.error(`error add stealth ${e}`)
-        // );
+        await addStealth(context).catch((e) =>
+          console.error(`error add stealth ${e}`)
+        );
 
-        // await context
-        //   .addInitScript(spoofing, profile.fingerprintSeed)
-        //   .catch((e) => console.error(`error evaluate ${e}`));
+        await context
+          .addInitScript(spoofing, profile.fingerprintSeed)
+          .catch((e) => console.error(`error evaluate ${e}`));
 
         // console.log("Inject xong");
       })();
@@ -277,9 +279,6 @@ export const initializeBrowser = async (
 //         password: proxyPassword,
 //       };
 //     }
-//     profile.profilePath = profile.profilePath
-//       ? profile.profilePath
-//       : path.resolve(__dirname, "../../profile");
 //     try {
 //       // export cookies va data k can persistent
 //       const context = await chromium.launch(options);

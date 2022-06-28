@@ -1,6 +1,5 @@
 import { Browser, BrowserContext, Page } from "playwright";
 import got from "got";
-import { changeLanguageEnglishUSPageGoogle } from "./changeLanguage";
 import { AccountGoogle } from "../interface";
 import path from "path";
 import fs from "fs";
@@ -37,7 +36,8 @@ const actionGmailGoogle = async (
         // eslint-disable-next-line
         actionSuccess = await loginGmailGoogle(page, account);
         // await wait(300000);
-      } else if (tasks[i] === "registerTikTok") {
+      }
+       else if (tasks[i] === "registerTikTok") {
         // eslint-disable-next-line
         actionSuccess = await registerTikTokAccount(browser, page, account);
         await wait(30000000);

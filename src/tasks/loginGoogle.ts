@@ -114,6 +114,9 @@ const loginGmailGoogle = async (page: Page, account: AccountGoogle) => {
         step += 1;
       } while (true);
       checkSuccess = await checkIsLoginGoogleSuccess(page, account);
+      if (checkSuccess) {
+        account.isLoginGmailGoogleSuccess = true;
+      }
     }
     return checkSuccess;
   } catch (error: any) {
@@ -123,3 +126,7 @@ const loginGmailGoogle = async (page: Page, account: AccountGoogle) => {
 };
 // eslint-disable-next-line
 export { loginGmailGoogle };
+
+// selectAccountGoogleLogin
+
+// img[src="https://lh3.googleusercontent.com/gdcR9U4eBJiAXBQwm_rnaVGyGCVeBcM2xhvvfZN3R8-kPNA0QTI91JEOa3b0p4QnfNM"]
