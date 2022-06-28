@@ -167,6 +167,11 @@ const selectDOBTikTok = async (page: Page, account: AccountGoogle) => {
     }
   } while (true);
 };
+
+const byPassCaptcha = async (page: Page, account: AccountGoogle)=>{
+  
+}
+
 export {
   clickBtnLoginTikTok,
   clickBTNTikTok,

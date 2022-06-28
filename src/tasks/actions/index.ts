@@ -36,6 +36,7 @@
 // };
 export * from "./gmailGoogle";
 export * from './registerTiktok'
+export * from './captChaSolver'
 // export * from './actionBusinessDetails';
 // export * from './actionBusinessHours';
 // export * from './actionContinueExistingAccount';

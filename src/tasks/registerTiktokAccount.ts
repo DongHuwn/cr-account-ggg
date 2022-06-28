@@ -14,6 +14,7 @@ import {
   clickBtnLoginTikTok,
   clickBTNTikTok,
   clickHandleDialog,
+  resolveCaptchaTikTok,
   selectAccountGoogleLogin,
   selectDOBTikTok,
 } from "./actions";
@@ -55,6 +56,7 @@ const registerTikTokAccount = async (
           check = await checkPositionTikTok(page, constants.FORM_LOGIN_TIK_TOK);
           if (check) {
             newPage = await clickHandleDialog(browser, page);
+            await wait(randomInteger(5, 8) * 1000);
           }
           check = await checkIsSelectedAccountGoogle(newPage);
           console.log(
@@ -74,7 +76,9 @@ const registerTikTokAccount = async (
           if (check) {
             console.log("select date of birth tiktok");
             await selectDOBTikTok(page, account);
+            await wait(randomInteger(8, 10) * 1000);
           }
+
           check = await checkIsDialogCapcha(page);
           console.log(
             "🚀 ~ file: registerTiktokAccount.ts ~ line 73 ~ check",
@@ -82,6 +86,7 @@ const registerTikTokAccount = async (
           );
           if (check) {
             console.log("Vuot qua capcha");
+            await resolveCaptchaTikTok(page);
           }
           //   check = await checkIsPersonalInforAccountGoogle(page);
           //   if (check) {
