@@ -1,4 +1,6 @@
+config.json
 node_modules/
 profile/
 assets/
-config.json
+config.json 
+test.log
