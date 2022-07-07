@@ -229,3 +229,6 @@ export const LOG_IN_TIK_TOK_BTN =
 
 export const SELECT_LOGIN_GOOGLE =
   "#loginContainer > div > div > div:nth-child(5)";
+
+export const SELECT_LOGIN_EMAIL =
+  "#loginContainer > div > div > a[href^='/login/phone-or-email/phone']";
